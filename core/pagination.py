@@ -20,7 +20,7 @@ def get_paginated_response(*, pagination_class, serializer_class, queryset, requ
 
 class LimitOffsetPagination(_LimitOffsetPagination):
     default_limit = 10
-    max_limit = 50
+    max_limit = 100
 
     def get_paginated_data(self, data):
         return OrderedDict([
