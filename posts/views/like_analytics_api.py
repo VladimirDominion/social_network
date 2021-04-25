@@ -2,14 +2,12 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from posts.models import Post
-from posts.selectors import post_list
-from core.pagination import get_paginated_response, LimitOffsetPagination
 from core.mixins import ApiAuthMixin
+from core.pagination import get_paginated_response, LimitOffsetPagination
+from posts.selectors import post_list
 
 
 class LikeAnalyticsApi(ApiAuthMixin, APIView):
-
     class FilterSerializer(serializers.Serializer):
         date_from = serializers.DateField()
         date_to = serializers.DateField()
