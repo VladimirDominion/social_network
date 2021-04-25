@@ -9,10 +9,11 @@ def user_create(
         email: str,
         password: str,
         first_name: str = "",
-        last_name: str = ""
+        last_name: str = "",
+        is_active: bool = True
 ) -> User:
     user = User.objects.create_user(
-        email=email, password=password, first_name=first_name, last_name=last_name
+        email=email, password=password, first_name=first_name, last_name=last_name, is_active=is_active
     )
     return user
 
