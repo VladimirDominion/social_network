@@ -1,18 +1,23 @@
-from rest_framework import serializers, status
-from rest_framework.response import Response
+from rest_framework import serializers
 from rest_framework.views import APIView
 
+from core.mixins import ApiAuthMixin
+from core.pagination import get_paginated_response, LimitOffsetPagination
 from posts.models import Post
 from posts.selectors import post_list
-from core.pagination import get_paginated_response, LimitOffsetPagination
-from core.mixins import ApiAuthMixin
 
 
 class PostListApi(ApiAuthMixin, APIView):
     class OutputSerializer(serializers.ModelSerializer):
+        count_likes = serializers.SerializerMethodField()
+
+        @staticmethod
+        def get_count_likes(obj):
+            return getattr(obj, 'count_likes', 0)
+
         class Meta:
             model = Post
-            fields = ('id', 'title', 'text', 'author')
+            fields = ('id', 'title', 'text', 'author', 'count_likes')
 
     class FilterSerializer(serializers.Serializer):
         title = serializers.CharField(max_length=255, required=False)

@@ -9,12 +9,12 @@ from posts.models import Post, Like
 
 def post_list(*, filters: Union[dict, None] = None) -> QuerySet:
     filters = filters or {}
-    qs = Post.objects.all()
+    qs = Post.objects.with_likes()
     return PostFilter(filters, qs).qs
 
 
 def get_post(*, post_id: int) -> Post:
-    return Post.objects.get(id=post_id)
+    return Post.objects.with_likes().get(id=post_id)
 
 
 def get_or_create_like(*, post_id, user_id) -> Like:
