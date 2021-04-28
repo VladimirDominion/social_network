@@ -1,5 +1,7 @@
 # Test Task Social Network
 
+https://github.com/HackSoftware/Django-Styleguide
+
 ## For run
 
 python manage.py runserver

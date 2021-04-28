@@ -5,7 +5,7 @@ from core.models import CreatedUpdatedModel
 
 class PostQueryset(models.QuerySet):
     def with_likes(self):
-        return self.annotate(
+        return self.prefetch_related('likes').annotate(
             count_likes=models.Count('likes', filter=models.Q(likes__kind=True))
         ).annotate(count_dislikes=models.Count('likes', filter=models.Q(likes__kind=False)))
 

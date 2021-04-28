@@ -1,7 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.utils import timezone
 from django.contrib.auth.password_validation import validate_password
+from django.db import models
+from django.utils import timezone
 
 from core.models import make_upload_path, CreatedUpdatedModel
 
@@ -58,5 +58,6 @@ class User(PermissionsMixin, AbstractBaseUser):
 
 
 class UserLastActivity(CreatedUpdatedModel):
+    """ Stores information on the last user request """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     url = models.TextField(default="", blank=True)
