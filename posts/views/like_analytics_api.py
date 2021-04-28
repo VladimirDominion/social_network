@@ -12,7 +12,7 @@ class LikeAnalyticsApi(ApiAuthMixin, APIView):
         date_to = serializers.DateField()
 
     class OutputSerializer(serializers.Serializer):
-        day = serializers.DateField()
+        day = serializers.DateTimeField()
         likes = serializers.IntegerField(default=0)
         dislikes = serializers.IntegerField(default=0)
 
@@ -23,6 +23,5 @@ class LikeAnalyticsApi(ApiAuthMixin, APIView):
         date_to = filters_serializer.validated_data.get('date_to', None)
 
         analytics = get_like_analytics(date_from=date_from, date_to=date_to)
-        response_data = self.OutputSerializer(list(analytics), many=True)
-
+        response_data = self.OutputSerializer(analytics, many=True).data
         return Response(response_data)
